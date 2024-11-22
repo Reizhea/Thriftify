@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once('includes/header.php');
 require_once('includes/db_connect.php');
 
@@ -71,6 +72,7 @@ $stmt->execute([$_SESSION['user_id']]);
 $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $total = 0;
+ob_end_flush();
 ?>
 
 <main id="cart">

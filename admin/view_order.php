@@ -7,7 +7,7 @@ $pdo = get_db_connection();
 
 // Fetch order details
 $order_id = $_GET['id'];
-$stmt = $pdo->prepare("SELECT o.*, u.username, u.email, u.address, o.total_cost, o.payment_method
+$stmt = $pdo->prepare("SELECT o.*, u.username, u.email, u.address, o.total_amount
                         FROM orders o
                         JOIN users u ON o.user_id = u.user_id
                         WHERE o.order_id = :order_id");
@@ -33,7 +33,6 @@ $order_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p><strong>Address:</strong> <?php echo $order['address']; ?></p>
             <p><strong>Order Date:</strong> <?php echo date('F j, Y', strtotime($order['order_date'])); ?></p>
             <p><strong>Total:</strong> Rs <?php echo number_format($order['total_amount'], 2); ?></p>
-            <p><strong>Payment Method:</strong> <?php echo ucfirst($order['payment_method']); ?></p>
             <p><strong>Status:</strong> <?php echo ucfirst($order['status']); ?></p>
         </div>
         <div class="order-items">

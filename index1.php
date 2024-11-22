@@ -32,12 +32,6 @@ $featured_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h2>Featured Products</h2>
         <div class="product-grid">
             <?php foreach ($featured_products as $product): ?>
-                <!-- <div class="product-card">
-                    <img src="<?php echo BASE_URL . UPLOADS_DIR . PRODUCTS_DIR . $product['image']; ?>" alt="<?php echo $product['title']; ?>">
-                    <h3><?php echo $product['title']; ?></h3>
-                    <p class="price">Rs <?php echo $product['price']; ?></p>
-                    <a href="<?php echo BASE_URL; ?>product_details.php?id=<?php echo $product['id']; ?>" class="card__button">View Details</a>
-                </div> -->
                 <article class="card">
   <img
     class="card__background"
@@ -66,4 +60,4 @@ $featured_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 </main>
 
-<?php require_once('includes/footer.php'); ?>   
+<?php require_once('includes/footer.php'); ?>

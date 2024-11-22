@@ -13,6 +13,10 @@ if (isset($_GET['delete'])) {
     $user_id = $_GET['delete'];
     $stmt = $pdo->prepare("DELETE FROM products WHERE user_id = :user_id");
 $stmt->execute(['user_id' => $user_id]);
+
+$stmt = $pdo->prepare("DELETE FROM reviews WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+    
     // Delete order items associated with user's orders
 $stmt = $pdo->prepare("DELETE FROM order_items WHERE order_id IN (SELECT order_id FROM orders WHERE user_id = :user_id)");
 $stmt->execute(['user_id' => $user_id]);

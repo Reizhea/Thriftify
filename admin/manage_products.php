@@ -5,8 +5,16 @@ require_once('../includes/db_connect.php');
 $pdo = get_db_connection();
 
 if (isset($_GET['delete'])) {
+    $product_id = $_GET['delete'];
+
+    $stmt = $pdo->prepare("DELETE FROM reviews WHERE product_id = ?");
+    $stmt->execute([$product_id]);
+
     $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
-    $stmt->execute([$_GET['delete']]);
+    $stmt->execute([$product_id]);
+
+    header('Location: manage_products.php');
+    exit();
 }
 
 $stmt = $pdo->query("SELECT * FROM products");

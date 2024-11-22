@@ -16,8 +16,21 @@ $user_id = $_SESSION['user_id'];
 // Handle product deletion
 if (isset($_GET['delete'])) {
     $product_id = $_GET['delete'];
+
+    $stmt = $pdo->prepare("DELETE FROM wishlist WHERE product_id = ?");
+    $stmt->execute([$product_id]);
+
+    $stmt = $pdo->prepare("DELETE FROM order_items WHERE product_id = ?");
+    $stmt->execute([$product_id]);
+
+    // First, delete associated cart items
+    $stmt = $pdo->prepare("DELETE FROM cart WHERE product_id = ?");
+    $stmt->execute([$product_id]);
+
+    // Now, delete the product
     $stmt = $pdo->prepare("DELETE FROM products WHERE id = ? AND user_id = ?");
     $stmt->execute([$product_id, $user_id]);
+
     header('Location: my_products.php');
     exit();
 }

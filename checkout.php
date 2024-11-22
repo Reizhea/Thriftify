@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once('includes/header.php');
 require_once('includes/db_connect.php');
 
@@ -32,11 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Clear the cart
     $stmt = $pdo->prepare("DELETE FROM cart WHERE user_id = ?");
     $stmt->execute([$_SESSION['user_id']]);
-
-    // Redirect to order confirmation
     header('Location: order_confirmation.php?order_id=' . $order_id);
     exit();
 }
+ob_end_flush();
 ?>
 
 <main>

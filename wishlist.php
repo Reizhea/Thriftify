@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once('includes/header.php');
 require_once('includes/db_connect.php');
 
@@ -40,6 +41,7 @@ if (isset($_GET['add'])) {
 $stmt = $pdo->prepare("SELECT w.*, p.title, p.price, p.image FROM wishlist w JOIN products p ON w.product_id = p.id WHERE w.user_id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $wishlist_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ob_end_flush();
 ?>
 
 <main>

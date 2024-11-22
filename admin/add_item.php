@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['status'];
 
     // Handle file upload
-    $target_dir = UPLOADS_DIR . PRODUCTS_DIR;
+    $target_dir = "../uploads/products/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
@@ -26,12 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
             $image = basename($_FILES["image"]["name"]);
 
-            $stmt = $pdo->prepare("INSERT INTO products (title, description, price, category, image, status, user_id) VALUES (:title, :description, :price, :category, :image, :status, :user_id)");
+            $stmt = $pdo->prepare("INSERT INTO products (title, description, price, category_id, image, status, user_id) VALUES (:title, :description, :price, :category_id, :image, :status, :user_id)");
             $stmt->execute([
                 'title' => $title,
                 'description' => $description,
                 'price' => $price,
-                'category' => $category,
+                'category_id' => $category,
                 'image' => $image,
                 'status' => $status,
                 'user_id' => $_SESSION['user_id']

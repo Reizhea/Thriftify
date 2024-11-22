@@ -68,24 +68,44 @@ $total_reviews = $rating_data['total_reviews'];
     <?php if (empty($reviews)): ?>
         <p>No reviews yet.</p>
     <?php else: ?>
-        <?php foreach ($reviews as $review): ?>
-            <div class="review">
-                <p class="review-author"><?php echo $review['username']; ?></p>
-                <p class="review-rating">
+            <!-- <div class="review">
+                <p class="review-author">Name: <?php echo $review['username']; ?></p>
+                <p class="review-rating">Rating:
                     <?php for ($i = 0; $i < $review['rating']; $i++) { ?>
                         <i class="fas fa-star"></i>
                     <?php } ?>
                 </p>
-                <p class="review-text"><?php echo $review['review_text']; ?></p>
-            </div>
-        <?php endforeach; ?>
+                <p class="review-text">Review: "<?php echo $review['review_text']; ?>"</p>
+            </div> -->
+            <section class="review-grid">
+                <?php foreach ($reviews as $index => $review): // Use $index to give unique IDs ?>
+                    <div class="review-card" onclick="toggleExpand(this)">
+                        <div class="review-header">
+                            <p class="review-author">Name: <?php echo $review['username']; ?></p>
+                            <p class="review-rating">Rating:
+                                <?php for ($i = 0; $i < $review['rating']; $i++) { ?>
+                                    <i class="fas fa-star"></i>
+                                <?php } ?>
+                            </p>
+                        </div>
+
+                        <div class="review-text">
+                            <p class="short-text" id="short-text-<?php echo $index; ?>">Review: "<?php echo substr($review['review_text'], 0, 50); ?>..."</p>
+                            <p class="full-text" id="full-text-<?php echo $index; ?>" style="display: none;">Review: "<?php echo $review['review_text']; ?>"</p>
+                        </div>
+
+                        <button class="expand-btn" data-index="<?php echo $index; ?>">Read More</button>
+                    </div>
+                <?php endforeach; ?>
+            </section>
     <?php endif; ?>
 </section>
 
 <!-- Submit Review Form -->
 <section class="submit-review">
     <h3>Submit a Review</h3>
-    <form action="submit_review.php" method="post">
+    <form action="submit_reviews.php" method="post">
+    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
         <label for="rating">Rating:</label>
         <div class="rating">
             <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
@@ -109,6 +129,43 @@ $total_reviews = $rating_data['total_reviews'];
             alert("Failed to copy the link.");
         });
     }
+    document.addEventListener("DOMContentLoaded", function() {
+    const expandButtons = document.querySelectorAll(".expand-btn");
+
+    expandButtons.forEach((button) => {
+        const index = button.getAttribute('data-index');
+        const shortText = document.getElementById(`short-text-${index}`);
+        const fullText = document.getElementById(`full-text-${index}`);
+
+        button.addEventListener("click", function() {
+            if (fullText.style.display === "none") {
+                fullText.style.display = "block";
+                shortText.style.display = "none";
+                button.textContent = "Show Less";
+            } else {
+                fullText.style.display = "none";
+                shortText.style.display = "block";
+                button.textContent = "Read More";
+            }
+        });
+    });
+    function toggleExpand(card) {
+    const reviewText = card.querySelector('.review-text');
+    const readMore = card.querySelector('.read-more');
+
+    // Toggle the expanded class
+    card.classList.toggle('expanded');
+    reviewText.classList.toggle('expanded');
+
+    // Change the read more text
+    if (card.classList.contains('expanded')) {
+        readMore.textContent = "Read Less";
+    } else {
+        readMore.textContent = "Read More";
+    }
+}
+});
+
 </script>
 </main>
 
