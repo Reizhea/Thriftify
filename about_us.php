@@ -14,22 +14,9 @@ Our values center around integrity, customer satisfaction, and environmental res
 Meet our team, dedicated to ensuring your shopping experience is as smooth and enjoyable as possible:</p>
 
         <div class="team-container">
-            <!-- Team Member 1 -->
-            <div class="team-member">
-                <img src="uploads/profile_pictures/harshit.jpg" alt="Harshit" class="team-member-img">
-                <h3>Harshit Patawari</h3>
-            </div>
-
-            <!-- Team Member 2 -->
             <div class="team-member">
                 <img src="uploads/profile_pictures/nawang.jpg" alt="Nawang" class="team-member-img">
-                <h3>Nawang Dorjee</h3>
-            </div>
-
-            <!-- Team Member 3 -->
-            <div class="team-member">
-                <img src="uploads/profile_pictures/abhilekh.jpg" alt="Abhilekh" class="team-member-img">
-                <h3>Abhilekh Kar</h3>
+                <h3>Nawang Dorjee<br><span>Lead Developer</span></h3>
             </div>
         </div>
     </section>
