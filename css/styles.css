@@ -594,13 +594,13 @@ body.dark .hero p {
 
 .team-member h3 {
     margin-top: 1rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin-left: 40px;
 }
 
-.team-member p {
-    font-size: 1rem;
-    color: #7c6f64;
+.team-member h3 span {
+    font-size: 0.95rem;
+    color: lightgrey
 }
 
 
